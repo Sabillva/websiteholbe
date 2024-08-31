@@ -2,6 +2,7 @@ let currentSlide = 0;
 const slides = document.querySelectorAll(".carousel-slide");
 const totalSlides = slides.length;
 
+// Fonksiyon: Slaytı göster
 function showSlide(index) {
   slides.forEach((slide) => {
     slide.style.display = "none";
@@ -9,103 +10,126 @@ function showSlide(index) {
   slides[index].style.display = "flex";
 }
 
+// Fonksiyon: Sonraki slaytı göster
 function nextSlide() {
   currentSlide = (currentSlide + 1) % totalSlides;
   showSlide(currentSlide);
 }
 
+// Fonksiyon: Carousel'i başlat
 function startCarousel() {
   showSlide(currentSlide);
   setInterval(nextSlide, 3000);
 }
 
+// Fonksiyon: Menü görünümünü değiştir
 function toggleMenu() {
   const navLinks = document.querySelector(".nav-links");
   navLinks.classList.toggle("active");
 }
 
+// Fonksiyon: Sosyal medya bağlantılarını ayarla
 function setSocialMediaLinks(url, title, image) {
-  document.querySelector(".facebook").href = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
-  document.querySelector(".twitter").href = `https://twitter.com/intent/tweet?url=${url}&text=${title}`;
-  document.querySelector(".pinterest").href = `https://pinterest.com/pin/create/button/?url=${url}&media=${image}&description=${title}`;
+  document.querySelector(
+    ".facebook"
+  ).href = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
+  document.querySelector(
+    ".twitter"
+  ).href = `https://twitter.com/intent/tweet?url=${url}&text=${title}`;
+  document.querySelector(
+    ".pinterest"
+  ).href = `https://pinterest.com/pin/create/button/?url=${url}&media=${image}&description=${title}`;
 }
 
-const currentUrl = window.location.href;
-const recipeTitle = document.querySelector("h1").innerText;
-const recipeImage = document.querySelector(".recipe-image").src;
-setSocialMediaLinks(currentUrl, recipeTitle, recipeImage);
-
+// Sayfa yüklendiğinde carousel'i başlat
 window.onload = startCarousel;
 
 document.addEventListener("DOMContentLoaded", () => {
   const controller = new ScrollMagic.Controller();
 
+  // GSAP animasyonu
   const fadeInIcons = gsap.fromTo(
     ".icon-container",
     { opacity: 0, y: 50 },
     { opacity: 1, y: 0, duration: 1, stagger: 0.2 }
   );
 
-  document.getElementById("feedback-form").addEventListener("submit", function (e) {
-    e.preventDefault(); 
+  // Feedback Form Submission
+  document
+    .getElementById("feedback-form")
+    .addEventListener("submit", function (e) {
+      e.preventDefault();
 
-    const name = document.getElementById("name").value;
-    const emailInput = document.getElementById("email");
-    let emailValue = emailInput.value.trim();
+      const name = document.getElementById("feedback-name").value;
+      const emailInput = document.getElementById("feedback-email");
+      let emailValue = emailInput.value.trim();
 
-    if (!emailValue.endsWith("@gmail.com")) {
-      emailValue += "@gmail.com";
-    }
+      if (!emailValue.endsWith("@gmail.com")) {
+        emailValue += "@gmail.com";
+      }
 
-    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailPattern.test(emailValue)) {
-      alert("Lütfen geçerli bir e-posta adresi girin.");
-      return;
-    }
+      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailPattern.test(emailValue)) {
+        alert("Lütfen geçerli bir e-posta adresi girin.");
+        return;
+      }
 
-    const feedbackData = {
-      email: emailValue,
-      name: name,
-      rating: document.getElementById("rating").value,
-      comments: document.getElementById("comments").value,
-    };
+      const feedbackData = {
+        email: emailValue,
+        name: name,
+        rating: document.getElementById("rating").value,
+        comments: document.getElementById("comments").value,
+      };
 
-    fetch("https://your-backend-endpoint.com/submit-feedback", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(feedbackData),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        alert("Feedback submitted successfully!");
-        document.getElementById("feedback-form").reset();
+      fetch("https://your-backend-endpoint.com/submit-feedback", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(feedbackData),
       })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
-  });
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Network response was not ok.");
+          }
+          return response.json();
+        })
+        .then((data) => {
+          alert("Feedback submitted successfully!");
+          document.getElementById("feedback-form").reset();
+        })
+        .catch((error) => {
+          alert("Bir hata oluştu: " + error.message);
+          console.error("Error:", error);
+        });
+    });
 
-  document.getElementById("contact-form").addEventListener("submit", function (e) {
-    e.preventDefault();
-    const name = document.getElementById("name").value;
-    const email = document.getElementById("email").value.trim() + "@gmail.com";
-    const message = document.getElementById("message").value;
+  // Contact Form Submission
+  document
+    .getElementById("contact-form")
+    .addEventListener("submit", function (e) {
+      e.preventDefault();
 
-    console.log(`Name: ${name}, Email: ${email}, Message: ${message}`);
+      const name = document.getElementById("name").value;
+      const email =
+        document.getElementById("email").value.trim() + "@gmail.com";
+      const message = document.getElementById("message").value;
 
-    alert("Your message has been sent successfully!");
+      console.log(`Name: ${name}, Email: ${email}, Message: ${message}`);
 
-    this.reset();
-  });
+      alert("Your message has been sent successfully!");
 
+      this.reset();
+    });
+
+  // Smooth scroll işlemleri
   document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
     anchor.addEventListener("click", function (e) {
       e.preventDefault();
       const target = document.querySelector(this.getAttribute("href"));
       const offset = document.querySelector("header").offsetHeight;
-      const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - offset;
+      const targetPosition =
+        target.getBoundingClientRect().top + window.pageYOffset - offset;
 
       window.scrollTo({
         top: targetPosition,
@@ -114,6 +138,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
+  // Tooltip görünümleri
   document.querySelectorAll(".nav-links a").forEach((link) => {
     link.addEventListener("mouseenter", function () {
       const imageUrl = link.getAttribute("data-image");
@@ -131,6 +156,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
+  // Lazy loading işlemleri
   let lazyImages = [].slice.call(document.querySelectorAll("img.lazyload"));
 
   if ("IntersectionObserver" in window) {
@@ -176,6 +202,7 @@ document.addEventListener("DOMContentLoaded", () => {
     window.addEventListener("orientationchange", lazyLoad);
   }
 
+  // GSAP ve ScrollMagic animasyonu
   new ScrollMagic.Scene({
     triggerElement: ".specials-section",
     triggerHook: 0.8,

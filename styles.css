@@ -19,17 +19,17 @@ header {
   color: #fff;
   padding: 20px;
   text-align: center;
-  position: fixed; 
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  height: 70px; 
-  z-index: 1000; 
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); 
+  height: 70px;
+  z-index: 1000;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
 }
 
 section {
-  scroll-margin-top: 70px; 
+  scroll-margin-top: 70px;
 }
 
 nav {
@@ -73,7 +73,7 @@ nav {
   border: none;
   outline: none;
   font-size: 16px;
-  min-width: 0; 
+  min-width: 0;
 }
 
 .search-bar button {
@@ -92,13 +92,12 @@ nav {
   height: 20px;
 }
 
-
 .nav-links a {
   color: #fff;
   text-decoration: none;
   font-weight: bold;
   position: relative;
-  display: inline-block; 
+  display: inline-block;
   padding: 10px;
 }
 
@@ -221,7 +220,7 @@ footer {
   justify-content: center;
   margin-top: 20px;
   opacity: 0;
-  transform: translateY(50px); 
+  transform: translateY(50px);
 }
 
 .icon-item {
@@ -366,7 +365,7 @@ footer {
 }
 
 .form-group select {
-  color: #999; 
+  color: #999;
 }
 
 .form-group select option:first-child {
@@ -415,13 +414,13 @@ button[type="submit"]:hover {
 
 @media (max-width: 1217px) {
   .search-bar {
-    max-width: 100px; 
+    max-width: 100px;
   }
 }
 
 @media (max-width: 2417px) {
   .search-bar {
-    min-width: 100px; 
+    min-width: 100px;
   }
 }
 
@@ -440,7 +439,7 @@ button[type="submit"]:hover {
   }
 
   .search-bar button img {
-    width: 18px; 
+    width: 18px;
     height: 18px;
   }
 
