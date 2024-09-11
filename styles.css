@@ -14,14 +14,17 @@ body {
   color: #333;
 }
 
-header {
+.header {
   background-color: #f04e6a;
+  display: flex;
+  justify-content: space-between;
   color: #fff;
   padding: 20px;
   text-align: center;
-  position: fixed;
+  position: fixed; 
   top: 0;
   left: 0;
+  right: 0;
   width: 100%;
   height: 70px;
   z-index: 1000;
@@ -32,73 +35,83 @@ section {
   scroll-margin-top: 70px;
 }
 
-nav {
+.left-section {
   display: flex;
-  justify-content: space-between;
   align-items: center;
 }
 
-.logo {
+.hamburger-menu {
+  height: 28px;
+  margin-left: 24px;
+  margin-right: 24px;
+}
+
+.smoothie-logo {
+  height: 50px;
+}
+
+.middle-section {
   flex: 1;
-  text-align: left;
-}
-
-.logo h1 {
-  font-family: "Pacifico", cursive;
-}
-
-.nav-links {
-  list-style: none;
+  margin-left: 70px;
+  margin-right: 35px;
+  max-width: 500px;
   display: flex;
-  justify-content: center;
-  flex: 2;
-  gap: 20px;
+  align-items: center;
 }
 
 .search-bar {
-  display: flex;
-  align-items: center;
-  border: 2px solid #f04e6a;
-  border-radius: 5px;
-  overflow: hidden;
-  width: 100%;
-  max-width: 200px;
-  min-width: 1o0px;
+  flex: 1;
+  height: 36px;
+  padding-left: 10px;
+  font-size: 16px;
+  border-radius: 18px;
+  box-shadow: inset 1px 2px 3px rgba(0, 0, 0, 0.05);
+  border: 0.1px solid #f04e6a;
   background-color: white;
 }
 
-.search-bar input[type="text"] {
-  flex-grow: 1;
-  padding: 10px;
-  border: none;
-  outline: none;
+.search-bar::placeholder {
+  font-family: Roboto, Arial;
   font-size: 16px;
-  min-width: 0;
 }
 
-.search-bar button {
+.search-button {
   background-color: #f04e6a;
   width: 40px;
   height: 40px;
-  border: none;
-  padding: 10px;
-  cursor: pointer;
+  border-width: 1px;
+  border-style: none;
+  border-color: #f04e6a;
+  margin-left: -1px;
+  margin-right: 10px;
+  position: relative;
   display: flex;
+  justify-content: center;
   align-items: center;
+  cursor: pointer;
 }
 
-.search-bar button img {
-  width: 20px;
-  height: 20px;
+
+.search-icon {
+  height: 25px;
+}
+
+.right-section {
+  margin-right: 20px;
+  flex-shrink: 0;
+}
+
+.nav-links{
+  display: flex;
 }
 
 .nav-links a {
+  position: relative;
   color: #fff;
   text-decoration: none;
   font-weight: bold;
-  position: relative;
   display: inline-block;
-  padding: 10px;
+  padding: 6px;
 }
 
 .nav-links a::after {
@@ -115,6 +128,7 @@ nav {
 .nav-links a:hover::after {
   width: 100%;
 }
+ 
 
 .nav-links a:hover {
   text-shadow: 0 0 10px rgba(255, 255, 255, 0.6),
@@ -138,49 +152,36 @@ nav {
   z-index: 10;
   opacity: 0;
   transition: opacity 0.3s ease-in-out;
+  pointer-events: none;
 }
+
+
 
 .nav-links a:hover::before {
   opacity: 1;
-}
-
-.tooltip-image {
-  position: absolute;
-  bottom: -120px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 200px;
-  height: 100px;
-  background-size: cover;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-  z-index: 10;
-  opacity: 0;
-  transition: opacity 0.3s ease-in-out;
-}
-
-.nav-links a:hover .tooltip-image {
-  opacity: 1;
-}
+  }
+ 
 
 .carousel-section {
   position: relative;
+  width: 100%;
   height: 100vh;
   background-color: #f04e6a;
   display: flex;
   justify-content: center;
   align-items: center;
+  overflow: hidden;
 }
 
 .carousel-container {
-  width: 80%;
-  max-width: 1200px;
-  overflow: hidden;
+  width: 100%;
+  height: 100vh;
   position: relative;
 }
 
 .carousel-slide {
+  position: absolute;
+  height: 100%;
   width: 100%;
   display: none;
   justify-content: center;
@@ -188,13 +189,15 @@ nav {
   text-align: center;
 }
 
+
 .carousel-slide img {
+  margin-top: 70px;
   width: 100%;
-  max-width: 600px;
-  border-radius: 20px;
+  object-fit: cover;
+  max-height: 100vh;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
 }
-
+  
 .specials-section {
   padding: 50px;
   background-color: #fff;
@@ -412,15 +415,27 @@ button[type="submit"]:hover {
   cursor: pointer;
 }
 
-@media (max-width: 1217px) {
+@media (max-width: 696px) {
   .search-bar {
-    max-width: 100px;
+    max-width: 1fr;
   }
 }
 
 @media (max-width: 2417px) {
   .search-bar {
-    min-width: 100px;
+    min-width: 1fr;
+  }
+}
+
+@media (min-width: 1096px) and (max-width: 1424px) {
+  .search-bar {
+    min-width: 1fr;
+  }
+}
+
+@media (min-width: 1425px) {
+  .search-bar {
+    min-width: 1fr;
   }
 }
 
@@ -449,10 +464,11 @@ button[type="submit"]:hover {
 
   .carousel-container {
     width: 100%;
-    max-width: none;
+    max-width: 1fr;
   }
 
   .carousel-slide img {
+    max-width: 1fr;
     width: 90%;
   }
 

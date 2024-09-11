@@ -22,6 +22,10 @@ function startCarousel() {
   setInterval(nextSlide, 3000);
 }
 
+window.onload = function () {
+  startCarousel();
+};
+
 // Fonksiyon: Menü görünümünü değiştir
 function toggleMenu() {
   const navLinks = document.querySelector(".nav-links");
@@ -127,10 +131,9 @@ document.addEventListener("DOMContentLoaded", () => {
     anchor.addEventListener("click", function (e) {
       e.preventDefault();
       const target = document.querySelector(this.getAttribute("href"));
-      const offset = document.querySelector("header").offsetHeight;
+      const offset = document.querySelector(".header").offsetHeight;
       const targetPosition =
         target.getBoundingClientRect().top + window.pageYOffset - offset;
-
       window.scrollTo({
         top: targetPosition,
         behavior: "smooth",
@@ -145,6 +148,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const tooltip = document.createElement("div");
       tooltip.classList.add("tooltip-image");
       tooltip.style.backgroundImage = `url(${imageUrl})`;
+      tooltip.style.backgroundColor = `green`;
       link.appendChild(tooltip);
     });
 
@@ -210,3 +214,4 @@ document.addEventListener("DOMContentLoaded", () => {
     .setTween(fadeInIcons)
     .addTo(controller);
 });
+

@@ -18,70 +18,58 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <script src="script.js" async></script>
-    <script src="script.js" defer></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.0/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.8/ScrollMagic.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.8/plugins/animation.gsap.min.js"></script>
-    <header>
-      <nav>
-        <div class="logo">
-          <h1>Smoothie</h1>
+    
+      <div class="header">
+
+        <div class="left-section">
+          <img class="hamburger-menu" src="hamburger-menu.png">
+          <img class="smoothie-logo" src="smoothie-logo.png">
         </div>
-        <div class="menu-icon" onclick="toggleMenu()">&#9776;</div>
-        <ul class="nav-links">
-          <li><a href="#home" data-image="home.jpg">Home</a></li>
-          <li><a href="#specials" data-image="specials.jpg">Specials</a></li>
-          <li><a href="#about-us" data-image="about-us.jpg">About Us</a></li>
-          <li><a href="#contact" data-image="contact.jpg">Contact</a></li>
-        </ul>
-        <div class="search-bar">
-          <input type="text" placeholder="Search..." />
-          <button type="submit" class="search-button">
-            <img src="search.png" alt="Search" />
+
+        <div class="middle-section">
+          <input class="search-bar" type="text" placeholder="Search">
+          <button class="search-button">
+            <img class="search-icon" src="search.png">
           </button>
         </div>
-      </nav>
-    </header>
+
+        <div class="right-section">
+          <div class="nav-links">
+            <a href="#home" data-image="home.jpg">Home</a>
+            <a href="#specials" data-image="specials.jpg">Specials</a>
+            <a href="#about-us" data-image="about-us.jpg">About Us</a>
+            <a href="#contact" data-image="contact.jpg">Contact</a>
+          </div>       
+        </div>
+      </div>
+
     <section id="home" class="carousel-section">
+
       <div class="carousel-container">
         <div class="carousel-slide">
           <img
-            src="images/pudding1.png"
-            srcset="
-              images/pudding1-small.png   500w,
-              images/pudding1-medium.png 1000w,
-              images/pudding1-large.png  1500w
-            "
+            src="smoothie1.png"
             sizes="(max-width: 768px) 100vw, (max-width: 1024px) 80vw, 60vw"
             alt="Berry Smoothie"
           />
         </div>
         <div class="carousel-slide">
           <img
-            src="images/pudding2.png"
-            srcset="
-              images/pudding1-small.png   500w,
-              images/pudding1-medium.png 1000w,
-              images/pudding1-large.png  1500w
-            "
+            src="smoothie2.png"
             sizes="(max-width: 768px) 100vw, (max-width: 1024px) 80vw, 60vw"
             alt="Green Smoothie"
           />
         </div>
         <div class="carousel-slide">
           <img
-            src="images/pudding3.png"
-            srcset="
-              images/pudding1-small.png   500w,
-              images/pudding1-medium.png 1000w,
-              images/pudding1-large.png  1500w
-            "
+            src="smoothie3.png"
             sizes="(max-width: 768px) 100vw, (max-width: 1024px) 80vw, 60vw"
             alt="Yellow Smoothie"
           />
         </div>
       </div>
+
+
     </section>
     <section id="specials" class="specials-section">
       <div class="content">
@@ -254,6 +242,13 @@
         <a href="#">Twitter</a>
       </div>
     </footer>
+
+
+    <script src="script.js" async></script>
+    <script src="script.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.0/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.8/ScrollMagic.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.8/plugins/animation.gsap.min.js"></script>
     <script src="script.js"></script>
   </body>
 </html>
