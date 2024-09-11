@@ -9,7 +9,7 @@ html {
 }
 
 body {
-  font-family: "Arial", sans-serif;
+  font-family: "Montserrat", sans-serif;
   background-color: #f8f8f8;
   color: #333;
 }
@@ -21,7 +21,7 @@ body {
   color: #fff;
   padding: 20px;
   text-align: center;
-  position: fixed; 
+  position: fixed;
   top: 0;
   left: 0;
   right: 0;
@@ -29,6 +29,7 @@ body {
   height: 70px;
   z-index: 1000;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  align-items: center;
 }
 
 section {
@@ -41,9 +42,11 @@ section {
 }
 
 .hamburger-menu {
+  display: none;
   height: 28px;
   margin-left: 24px;
   margin-right: 24px;
+  cursor: pointer;
 }
 
 .smoothie-logo {
@@ -63,6 +66,7 @@ section {
   flex: 1;
   height: 36px;
   padding-left: 10px;
+  padding-top: 1px;
   font-size: 16px;
   border-radius: 18px;
   box-shadow: inset 1px 2px 3px rgba(0, 0, 0, 0.05);
@@ -73,6 +77,11 @@ section {
 .search-bar::placeholder {
   font-family: Roboto, Arial;
   font-size: 16px;
+  color: #aaa;
+}
+
+.search-bar.focused::placeholder {
+  color: transparent; /* Placeholder metninin kaybolmasını sağlar */
 }
 
 .search-button {
@@ -91,17 +100,18 @@ section {
   cursor: pointer;
 }
 
-
 .search-icon {
   height: 25px;
 }
 
 .right-section {
+  display: flex;
   margin-right: 20px;
   flex-shrink: 0;
+  align-items: center;
 }
 
-.nav-links{
+.nav-links {
   display: flex;
 }
 
@@ -128,7 +138,6 @@ section {
 .nav-links a:hover::after {
   width: 100%;
 }
- 
 
 .nav-links a:hover {
   text-shadow: 0 0 10px rgba(255, 255, 255, 0.6),
@@ -155,18 +164,62 @@ section {
   pointer-events: none;
 }
 
-
-
 .nav-links a:hover::before {
   opacity: 1;
-  }
- 
+}
+
+/* Sidebar Menu Styles */
+.sidebar-menu {
+  position: fixed;
+  top: 0;
+  left: -200px;
+  width: 200px;
+  height: 100vh;
+  background-color: white;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
+  transition: left 0.3s ease;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+
+.sidebar-menu a {
+  display: block;
+  padding: 15px;
+  text-decoration: none;
+  color: #333;
+  font-size: 18px;
+}
+
+.close-menu {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+}
+
+/* Show sidebar when active */
+.sidebar-menu.active {
+  left: 0;
+}
+
+/* İçeriğin sağa kaymasını sağlayacak sınıf */
+.content-shift {
+  transform: translateX(200px); /* Sidebar genişliğine göre ayarlayın */
+  transition: transform 0.3s ease;
+}
+
+/* İçeriği tekrar yerine getiren sınıf */
+.content {
+  transition: transform 0.3s ease;
+}
 
 .carousel-section {
   position: relative;
   width: 100%;
   height: 100vh;
-  background-color: #f04e6a;
+  background-color: rgb(19, 18, 18);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -174,30 +227,41 @@ section {
 }
 
 .carousel-container {
-  width: 100%;
-  height: 100vh;
   position: relative;
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden;
+  height: 100vh;
 }
 
 .carousel-slide {
   position: absolute;
   height: 100%;
   width: 100%;
-  display: none;
+  display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
+
+  opacity: 0;
+  transition: opacity 1s ease, transform 1s ease;
+  transform: scale(1.1);
 }
 
+.carousel-slide.active {
+  opacity: 1;
+  transform: scale(1);
+}
 
 .carousel-slide img {
   margin-top: 70px;
   width: 100%;
   object-fit: cover;
+  height: 100%;
   max-height: 100vh;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
 }
-  
+
 .specials-section {
   padding: 50px;
   background-color: #fff;
@@ -304,17 +368,6 @@ footer {
   box-sizing: border-box;
 }
 
-#contact-form .email-wrapper {
-  display: flex;
-  align-items: center;
-}
-
-#contact-form .email-wrapper span {
-  margin-left: 5px;
-  color: #666;
-  font-weight: normal;
-}
-
 #contact-form button[type="submit"] {
   background-color: #f04e6a;
   color: white;
@@ -346,20 +399,20 @@ footer {
   margin-bottom: 30px;
 }
 
-.form-group {
+.feedback-section .form-group {
   margin-bottom: 15px;
   text-align: left;
 }
 
-.form-group label {
+.feedback-section .form-group label {
   display: block;
   font-weight: bold;
   margin-bottom: 5px;
 }
 
-.form-group input,
-.form-group select,
-.form-group textarea {
+.feedback-section .form-group input,
+.feedback-section .form-group select,
+.feedback-section .form-group textarea {
   width: 100%;
   padding: 10px;
   border: 1px solid #ccc;
@@ -367,32 +420,12 @@ footer {
   box-sizing: border-box;
 }
 
-.form-group select {
+.feedback-section .form-group select {
   color: #999;
 }
 
-.form-group select option:first-child {
+.feedback-section .form-group select option:first-child {
   color: #999;
-}
-
-.email-wrapper {
-  display: flex;
-  align-items: center;
-}
-
-.email-wrapper input {
-  border: 1px solid #ccc;
-  padding: 10px;
-  border-radius: 5px;
-  flex: 1;
-}
-
-.email-wrapper span {
-  background-color: #f0f0f0;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-left: none;
-  border-radius: 0 5px 5px 0;
 }
 
 button[type="submit"] {
@@ -403,6 +436,7 @@ button[type="submit"] {
   border-radius: 5px;
   cursor: pointer;
   font-size: 16px;
+  margin-top: 15px;
 }
 
 button[type="submit"]:hover {
@@ -415,7 +449,7 @@ button[type="submit"]:hover {
   cursor: pointer;
 }
 
-@media (max-width: 696px) {
+@media (max-width: 900px) {
   .search-bar {
     max-width: 1fr;
   }
@@ -427,7 +461,7 @@ button[type="submit"]:hover {
   }
 }
 
-@media (min-width: 1096px) and (max-width: 1424px) {
+@media (min-width: 901px) and (max-width: 1424px) {
   .search-bar {
     min-width: 1fr;
   }
@@ -439,7 +473,7 @@ button[type="submit"]:hover {
   }
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 900px) {
   .menu-icon {
     display: none;
   }
@@ -449,8 +483,11 @@ button[type="submit"]:hover {
   }
 
   .nav-links {
-    display: flex;
-    flex-direction: row;
+    display: none;
+  }
+
+  .hamburger-menu {
+    display: block;
   }
 
   .search-bar button img {
@@ -458,9 +495,9 @@ button[type="submit"]:hover {
     height: 18px;
   }
 
-  .nav-links.active {
+  /* .nav-links.active {
     display: flex;
-  }
+  } */
 
   .carousel-container {
     width: 100%;
@@ -469,7 +506,7 @@ button[type="submit"]:hover {
 
   .carousel-slide img {
     max-width: 1fr;
-    width: 90%;
+    width: 100%;
   }
 
   .specials-section {
@@ -484,6 +521,16 @@ button[type="submit"]:hover {
     width: 80px;
     height: 80px;
     margin: 10px 0;
+  }
+}
+
+@media screen and (min-width: 901px) {
+  .hamburger-menu {
+    display: none;
+  }
+
+  .nav-links {
+    display: flex; /* veya istediğiniz şekilde düzenleyin */
   }
 }
 
@@ -523,14 +570,6 @@ button[type="submit"]:hover {
 @media screen and (min-width: 769px) and (max-width: 1024px) {
   header {
     padding: 20px;
-  }
-
-  .carousel-container {
-    width: 90%;
-  }
-
-  .carousel-slide img {
-    width: 80%;
   }
 
   .specials-section {

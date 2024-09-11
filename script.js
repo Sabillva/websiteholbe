@@ -5,9 +5,9 @@ const totalSlides = slides.length;
 // Fonksiyon: Slaytı göster
 function showSlide(index) {
   slides.forEach((slide) => {
-    slide.style.display = "none";
+    slide.classList.remove("active");
   });
-  slides[index].style.display = "flex";
+  slides[index].classList.add("active");
 }
 
 // Fonksiyon: Sonraki slaytı göster
@@ -22,14 +22,20 @@ function startCarousel() {
   setInterval(nextSlide, 3000);
 }
 
-window.onload = function () {
-  startCarousel();
-};
-
 // Fonksiyon: Menü görünümünü değiştir
 function toggleMenu() {
-  const navLinks = document.querySelector(".nav-links");
-  navLinks.classList.toggle("active");
+  const sidebarMenu = document.querySelector(".sidebar-menu");
+  const mainContent = document.querySelector(".content");
+  sidebarMenu.classList.toggle("active");
+  mainContent.classList.toggle("content-shift");
+}
+
+// Fonksiyon: Sidebar'ı kapat
+function closeSidebar() {
+  const sidebarMenu = document.querySelector(".sidebar-menu");
+  const mainContent = document.querySelector(".content");
+  sidebarMenu.classList.remove("active");
+  mainContent.classList.remove("content-shift");
 }
 
 // Fonksiyon: Sosyal medya bağlantılarını ayarla
@@ -46,12 +52,32 @@ function setSocialMediaLinks(url, title, image) {
 }
 
 // Sayfa yüklendiğinde carousel'i başlat
-window.onload = startCarousel;
+window.onload = function () {
+  startCarousel();
+  document
+    .querySelector(".hamburger-menu")
+    .addEventListener("click", toggleMenu);
+  document.querySelector(".close-menu").addEventListener("click", closeSidebar);
+};
 
+// Search Bar Placeholder Davranışı
 document.addEventListener("DOMContentLoaded", () => {
-  const controller = new ScrollMagic.Controller();
+  const searchBar = document.querySelector(".search-bar");
+
+  searchBar.addEventListener("focus", () => {
+    if (searchBar.value === "") {
+      searchBar.classList.add("focused");
+    }
+  });
+
+  searchBar.addEventListener("blur", () => {
+    if (searchBar.value === "") {
+      searchBar.classList.remove("focused");
+    }
+  });
 
   // GSAP animasyonu
+  const controller = new ScrollMagic.Controller();
   const fadeInIcons = gsap.fromTo(
     ".icon-container",
     { opacity: 0, y: 50 },
@@ -63,21 +89,9 @@ document.addEventListener("DOMContentLoaded", () => {
     .getElementById("feedback-form")
     .addEventListener("submit", function (e) {
       e.preventDefault();
-
       const name = document.getElementById("feedback-name").value;
       const emailInput = document.getElementById("feedback-email");
       let emailValue = emailInput.value.trim();
-
-      if (!emailValue.endsWith("@gmail.com")) {
-        emailValue += "@gmail.com";
-      }
-
-      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!emailPattern.test(emailValue)) {
-        alert("Lütfen geçerli bir e-posta adresi girin.");
-        return;
-      }
-
       const feedbackData = {
         email: emailValue,
         name: name,
@@ -103,7 +117,7 @@ document.addEventListener("DOMContentLoaded", () => {
           document.getElementById("feedback-form").reset();
         })
         .catch((error) => {
-          alert("Bir hata oluştu: " + error.message);
+          alert("An error occurred: " + error.message);
           console.error("Error:", error);
         });
     });
@@ -113,16 +127,11 @@ document.addEventListener("DOMContentLoaded", () => {
     .getElementById("contact-form")
     .addEventListener("submit", function (e) {
       e.preventDefault();
-
       const name = document.getElementById("name").value;
-      const email =
-        document.getElementById("email").value.trim() + "@gmail.com";
+      const email = document.getElementById("email").value.trim();
       const message = document.getElementById("message").value;
-
       console.log(`Name: ${name}, Email: ${email}, Message: ${message}`);
-
       alert("Your message has been sent successfully!");
-
       this.reset();
     });
 
@@ -213,5 +222,10 @@ document.addEventListener("DOMContentLoaded", () => {
   })
     .setTween(fadeInIcons)
     .addTo(controller);
-});
 
+  // Hamburger Menü ve Sidebar
+  document
+    .querySelector(".hamburger-menu")
+    .addEventListener("click", toggleMenu);
+  document.querySelector(".close-menu").addEventListener("click", closeSidebar);
+});
