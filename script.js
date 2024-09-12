@@ -2,7 +2,6 @@ let currentSlide = 0;
 const slides = document.querySelectorAll(".carousel-slide");
 const totalSlides = slides.length;
 
-// Fonksiyon: Slaytı göster
 function showSlide(index) {
   slides.forEach((slide) => {
     slide.classList.remove("active");
@@ -10,27 +9,26 @@ function showSlide(index) {
   slides[index].classList.add("active");
 }
 
-// Fonksiyon: Sonraki slaytı göster
+
 function nextSlide() {
   currentSlide = (currentSlide + 1) % totalSlides;
   showSlide(currentSlide);
 }
 
-// Fonksiyon: Carousel'i başlat
 function startCarousel() {
   showSlide(currentSlide);
   setInterval(nextSlide, 3000);
 }
 
-// Fonksiyon: Menü görünümünü değiştir
+
 function toggleMenu() {
   const sidebarMenu = document.querySelector(".sidebar-menu");
   const mainContent = document.querySelector(".content");
   sidebarMenu.classList.toggle("active");
   mainContent.classList.toggle("content-shift");
+
 }
 
-// Fonksiyon: Sidebar'ı kapat
 function closeSidebar() {
   const sidebarMenu = document.querySelector(".sidebar-menu");
   const mainContent = document.querySelector(".content");
@@ -38,7 +36,16 @@ function closeSidebar() {
   mainContent.classList.remove("content-shift");
 }
 
-// Fonksiyon: Sosyal medya bağlantılarını ayarla
+function handleResize() {
+  const sidebarMenu = document.querySelector(".sidebar-menu");
+  const screenWidth = window.innerWidth;
+  const thresholdWidth = 900; // Sidebar kapanması için minimum genişlik
+
+  if (sidebarMenu.classList.contains("active") && screenWidth >= thresholdWidth) {
+    closeSidebar();
+  }
+}
+
 function setSocialMediaLinks(url, title, image) {
   document.querySelector(
     ".facebook"
@@ -51,16 +58,15 @@ function setSocialMediaLinks(url, title, image) {
   ).href = `https://pinterest.com/pin/create/button/?url=${url}&media=${image}&description=${title}`;
 }
 
-// Sayfa yüklendiğinde carousel'i başlat
 window.onload = function () {
   startCarousel();
   document
     .querySelector(".hamburger-menu")
     .addEventListener("click", toggleMenu);
   document.querySelector(".close-menu").addEventListener("click", closeSidebar);
+  window.addEventListener("resize", handleResize);
 };
 
-// Search Bar Placeholder Davranışı
 document.addEventListener("DOMContentLoaded", () => {
   const searchBar = document.querySelector(".search-bar");
 
@@ -76,7 +82,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // GSAP animasyonu
   const controller = new ScrollMagic.Controller();
   const fadeInIcons = gsap.fromTo(
     ".icon-container",
@@ -84,7 +89,6 @@ document.addEventListener("DOMContentLoaded", () => {
     { opacity: 1, y: 0, duration: 1, stagger: 0.2 }
   );
 
-  // Feedback Form Submission
   document
     .getElementById("feedback-form")
     .addEventListener("submit", function (e) {
@@ -122,7 +126,6 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-  // Contact Form Submission
   document
     .getElementById("contact-form")
     .addEventListener("submit", function (e) {
@@ -135,7 +138,6 @@ document.addEventListener("DOMContentLoaded", () => {
       this.reset();
     });
 
-  // Smooth scroll işlemleri
   document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
     anchor.addEventListener("click", function (e) {
       e.preventDefault();
@@ -150,7 +152,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // Tooltip görünümleri
   document.querySelectorAll(".nav-links a").forEach((link) => {
     link.addEventListener("mouseenter", function () {
       const imageUrl = link.getAttribute("data-image");
@@ -169,7 +170,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // Lazy loading işlemleri
   let lazyImages = [].slice.call(document.querySelectorAll("img.lazyload"));
 
   if ("IntersectionObserver" in window) {
@@ -215,7 +215,6 @@ document.addEventListener("DOMContentLoaded", () => {
     window.addEventListener("orientationchange", lazyLoad);
   }
 
-  // GSAP ve ScrollMagic animasyonu
   new ScrollMagic.Scene({
     triggerElement: ".specials-section",
     triggerHook: 0.8,
@@ -223,7 +222,6 @@ document.addEventListener("DOMContentLoaded", () => {
     .setTween(fadeInIcons)
     .addTo(controller);
 
-  // Hamburger Menü ve Sidebar
   document
     .querySelector(".hamburger-menu")
     .addEventListener("click", toggleMenu);
