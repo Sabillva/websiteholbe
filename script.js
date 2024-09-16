@@ -9,7 +9,6 @@ function showSlide(index) {
   slides[index].classList.add("active");
 }
 
-
 function nextSlide() {
   currentSlide = (currentSlide + 1) % totalSlides;
   showSlide(currentSlide);
@@ -20,13 +19,11 @@ function startCarousel() {
   setInterval(nextSlide, 3000);
 }
 
-
 function toggleMenu() {
   const sidebarMenu = document.querySelector(".sidebar-menu");
   const mainContent = document.querySelector(".content");
   sidebarMenu.classList.toggle("active");
   mainContent.classList.toggle("content-shift");
-
 }
 
 function closeSidebar() {
@@ -41,7 +38,10 @@ function handleResize() {
   const screenWidth = window.innerWidth;
   const thresholdWidth = 900; // Sidebar kapanması için minimum genişlik
 
-  if (sidebarMenu.classList.contains("active") && screenWidth >= thresholdWidth) {
+  if (
+    sidebarMenu.classList.contains("active") &&
+    screenWidth >= thresholdWidth
+  ) {
     closeSidebar();
   }
 }

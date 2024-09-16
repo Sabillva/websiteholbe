@@ -16,6 +16,7 @@ body {
 
 .header {
   background-color: none;
+  transition: background-color 0.3s ease;
   display: flex;
   justify-content: space-between;
   color: #000000;
@@ -76,7 +77,7 @@ section {
 
 .search-bar-sidebar {
   height: 30px;
-  width: 130px;
+  width: 110px;
   font-size: 16px;
   border-radius: 20px 0 0 20px;
   box-shadow: inset 1px 2px 3px rgba(75, 74, 74, 0.05);
@@ -84,6 +85,36 @@ section {
   background-color: rgb(255, 255, 255);
 }
 
+.search-button-sidebar {
+  background-color: black;
+  width: 40px;
+  height: 30x;
+  border-width: 1px;
+  border-style: none;
+  border-color: none;
+  border-radius: 0 20px 20px 0;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  margin-left: -1px;
+  margin-right: 10px;
+}
+
+.search-icon-sidebar {
+  height: 30px;
+}
+
+.search-bar-sidebar::placeholder {
+  font-family: Roboto, Arial;
+  font-size: 16px;
+  color: #aaa;
+}
+
+.search-bar-sidebar.focused::placeholder {
+  color: transparent;
+}
 
 .search-bar::placeholder {
   font-family: Roboto, Arial;
